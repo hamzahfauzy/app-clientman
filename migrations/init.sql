@@ -101,6 +101,7 @@ CREATE TABLE transactions (
     customer_id INT NOT NULL,
     total DOUBLE NOT NULL,
     proof_file VARCHAR(100) NOT NULL,
+    note TEXT NULL,
     CONSTRAINT fk_transactions_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_transactions_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
 );
