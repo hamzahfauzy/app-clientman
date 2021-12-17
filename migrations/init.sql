@@ -62,11 +62,11 @@ CREATE TABLE packages (
     CONSTRAINT fk_packages_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE package_services (
+CREATE TABLE package_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     package_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
-    CONSTRAINT fk_package_services_id FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE
+    CONSTRAINT fk_package_items_id FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE
 );
 
 CREATE TABLE customers (
