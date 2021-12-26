@@ -27,6 +27,8 @@ if(!$installation && $route != "installation")
     die();
 }
 
+if($route == "pendaftaran/index") return true;
+
 $auth = auth();
 if(!isset($auth->user) && !in_array($route, ['auth/login','installation']))
 {

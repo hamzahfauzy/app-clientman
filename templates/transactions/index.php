@@ -4,18 +4,11 @@
             <div class="page-inner py-5">
                 <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                     <div>
-                        <h2 class="text-white pb-2 fw-bold">Kustomer</h2>
-                        <h5 class="text-white op-7 mb-2">Memanajemen data Kustomer</h5>
+                        <h2 class="text-white pb-2 fw-bold">Transaksi</h2>
+                        <h5 class="text-white op-7 mb-2">Memanajemen data Transaksi</h5>
                     </div>
-                    <div class="ml-md-auto py-2 py-md-0 d-flex">
-                        <div class="input-group mr-3" style="border-radius:20px; overflow:hidden;">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-danger" id="copy-btn" type="button">Salin</button>
-                            </div>
-                            <input type="text" id="copy-text" readonly class="form-control" value="<?= $_SERVER['HTTP_HOST']  ?>/index.php?r=pendaftaran/index&id=<?=auth()->user->id?>">
-                        </div>
-                        <a href="index.php?r=customers/create" class="btn btn-secondary btn-round mr-2">Buat Kustomer</a>
-                        <a href="index.php?r=customers/fields/index" class="btn btn-warning btn-round">Field Kustomer</a>
+                    <div class="ml-md-auto py-2 py-md-0">
+                        <a href="index.php?r=transactions/create" class="btn btn-secondary btn-round">Buat Transaksi</a>
                     </div>
                 </div>
             </div>
@@ -28,13 +21,18 @@
                             <?php if($success_msg): ?>
                             <div class="alert alert-success"><?=$success_msg?></div>
                             <?php endif ?>
+                            <?php if($failed_msg): ?>
+                            <div class="alert alert-danger"><?=$failed_msg?></div>
+                            <?php endif ?>
                             <div class="table-responsive table-hover table-sales">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th width="20px">#</th>
-                                            <th>Nama</th>
-                                            <th>Paket</th>
+                                            <th>Nama Kustomer</th>
+                                            <th>Total</th>
+                                            <th>Catatan</th>
+                                            <th>Bukti</th>
                                             <th class="text-right">
                                             </th>
                                         </tr>
@@ -46,11 +44,16 @@
                                                 <?=$index+1?>
                                             </td>
                                             <td><?=$data->name?></td>
-                                            <td><?=$data->package?></td>
+                                            <td><?=$data->total?></td>
+                                            <td><?=$data->note?></td>
                                             <td>
-                                                <a href="index.php?r=customers/view&id=<?=$data->id?>" class="btn btn-sm btn-success"><i class="fas fa-eye"></i> Lihat</a>
-                                                <a href="index.php?r=customers/edit&id=<?=$data->id?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i> Edit</a>
-                                                <a href="index.php?r=customers/delete&id=<?=$data->id?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Hapus</a>
+                                                <a href="<?=$data->proof_file?>" target="_blank">
+                                                    <img src="<?=$data->proof_file?>" height="100" alt="Bukti Transaksi">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="index.php?r=transactions/edit&id=<?=$data->id?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                                <a href="index.php?r=transactions/delete&id=<?=$data->id?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Hapus</a>
                                             </td>
                                         </tr>
                                         <?php endforeach ?>
@@ -64,18 +67,3 @@
         </div>
     </div>
 <?php load_templates('layouts/bottom') ?>
-
-<script>
-    $("#copy-btn").click(function(){
-
-        navigator.clipboard.writeText($("#copy-text").val());
-
-        $.notify({
-            // options
-            message: 'Berhasil menyalin!'
-        },{
-            // settings
-            type: 'success'
-        });
-    })
-</script>
