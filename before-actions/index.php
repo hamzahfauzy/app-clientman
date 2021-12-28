@@ -3,7 +3,7 @@
 $route = get_route();
 
 if($route == 'app/db-init')
-    if(stringContains(url(),"localhost"))
+    if(stringContains(url(),"localhost") || stringContains(url(),"z-techno"))
         return true;
     else
         return false;
